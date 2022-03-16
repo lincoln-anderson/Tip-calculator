@@ -14,11 +14,18 @@ struct ContentView: View {
                 Text("TIP CALCULATOR")
                     .fontWeight(.bold)
                     .font(.largeTitle)
-                Text("Final Bill Amount: \(getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
+                Text("Final Bill: \(getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
                     .font(.title)
-                Text("Tip Amount: \(getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
+                Text("Tip: \(getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
                     .font(.title2)
-                Text("")
+                HStack {
+                    Text("Split Amount: \(getSplitAmount(finalBill: getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
+                        .font(.title2)
+                    Spacer()
+                    Text("Split Tip: \(getSplitAmount(finalBill: getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
+                        .font(.title2)
+                }
+                
             }
             Spacer()
                 TextField("Enter Bill Amount", text: $billAmount)
@@ -79,4 +86,10 @@ func getTipAmount(billAmount:Double, tipPercent: Double) -> Double {
     let finalBill = Double(billAmount) * (tipPercent / 100)
     
     return finalBill
+}
+
+func getSplitAmount(finalBill: Double, splitAmount: Double) -> Double {
+    let finalSplitAmount = finalBill / splitAmount
+    
+    return finalSplitAmount
 }
