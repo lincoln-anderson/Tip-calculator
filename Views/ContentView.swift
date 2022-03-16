@@ -19,11 +19,13 @@ struct ContentView: View {
                 Text("Tip: \(getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
                     .font(.title2)
                 HStack {
+                    Spacer()
                     Text("Split Amount: \(getSplitAmount(finalBill: getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
                         .font(.title2)
                     Spacer()
                     Text("Split Tip: \(getSplitAmount(finalBill: getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
                         .font(.title2)
+                    Spacer()
                 }
                 
             }
