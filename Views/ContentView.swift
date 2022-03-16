@@ -33,106 +33,22 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                     .padding()
             Text("Tip Percent is: \(Int(tipPercent))")
+            MySlider(passedStateVariable: $tipPercent, bottom: 0, top: 40, step: 1)
             HStack{
-                Text("0")
-                Slider(value: $tipPercent, in: 0...40, step: 1)
-                    .accentColor(colorScheme == .dark ? .white : .black)
-                Text("40")
-            }
-            HStack{
-                Spacer()
-                Button {
-                    tipPercent = 15
-                } label: {
-                    Text("15")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                Button {
-                    tipPercent = 20
-                } label: {
-                    Text("20")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                Button {
-                    tipPercent = 25
-                } label: {
-                    Text("25")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                Button {
-                    tipPercent = 30
-                } label: {
-                    Text("30")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
+                MyButton(passedStateVariable: $tipPercent, passedVariable: 15, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $tipPercent, passedVariable: 20, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $tipPercent, passedVariable: 25, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $tipPercent, passedVariable: 30, colorScheme: _colorScheme)
                 
             }
-            HStack {
-                Text("1")
-                Slider(value: $splitAmount, in: 1...12, step: 1)
-                    .accentColor(colorScheme == .dark ? .white : .black)
-                Text("12")
-            }
+            Text("Split Amount is: \(Int(splitAmount))")
+            MySlider(passedStateVariable: $splitAmount, bottom: 1, top: 12, step: 1)
             HStack{
-                Spacer()
-                Button {
-                    splitAmount = 4
-                } label: {
-                    Text("4")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                Button {
-                    splitAmount = 6
-                } label: {
-                    Text("6")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                Button {
-                    splitAmount = 8
-                } label: {
-                    Text("8")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                Button {
-                    splitAmount = 10
-                } label: {
-                    Text("10")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                Button {
-                    splitAmount = 12
-                } label: {
-                    Text("12")
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                
+                MyButton(passedStateVariable: $splitAmount, passedVariable: 4, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $splitAmount, passedVariable: 6, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $splitAmount, passedVariable: 8, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $splitAmount, passedVariable: 10, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $splitAmount, passedVariable: 12, colorScheme: _colorScheme)
             }
             
             Spacer()
