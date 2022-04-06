@@ -47,7 +47,7 @@ struct ContentView: View {
             MySlider(passedStateVariable: $tipPercent, bottom: 0, top: 40, step: 1)
             Text("Tip Percent is: \(Int(tipPercent))")
                 .fontWeight(.bold)
-            HStack{
+            HStack(spacing: 25){
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 15, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 20, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 25, colorScheme: _colorScheme)
@@ -58,12 +58,11 @@ struct ContentView: View {
             MySlider(passedStateVariable: $splitAmount, bottom: 1, top: 12, step: 1)
             Text("Split Amount is: \(Int(splitAmount))")
                 .fontWeight(.bold)
-            HStack{
+            HStack(spacing: 25){
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 4, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 6, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 8, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 10, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $splitAmount, passedVariable: 12, colorScheme: _colorScheme)
             }
             
             Spacer()
