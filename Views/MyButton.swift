@@ -17,9 +17,16 @@ struct MyButton: View {
             passedStateVariable = passedVariable
         } label: {
             Text(String(Int(passedVariable)))
-                .foregroundColor(.blue)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .font(.title2)
                 .fontWeight(.bold)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
+                        
+                )
+            
         }
         Spacer()
     }
