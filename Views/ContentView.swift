@@ -18,14 +18,16 @@ struct ContentView: View {
                     .font(.title)
                 Text("Tip: \(getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
                     .font(.title2)
-                HStack {
-                    Spacer()
-                    Text("Split Amount: \(getSplitAmount(finalBill: getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
-                        .font(.title2)
-                    Spacer()
-                    Text("Split Tip: \(getSplitAmount(finalBill: getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
-                        .font(.title2)
-                    Spacer()
+                if (splitAmount != 1.0) {
+                    HStack {
+                        Spacer()
+                        Text("Split Amount: \(getSplitAmount(finalBill: getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
+                            .font(.title2)
+                        Spacer()
+                        Text("Split Tip: \(getSplitAmount(finalBill: getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), splitAmount: splitAmount), specifier: "%.2f")")
+                            .font(.title2)
+                        Spacer()
+                    }
                 }
                 
             }
@@ -44,6 +46,7 @@ struct ContentView: View {
             
             MySlider(passedStateVariable: $tipPercent, bottom: 0, top: 40, step: 1)
             Text("Tip Percent is: \(Int(tipPercent))")
+                .fontWeight(.bold)
             HStack{
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 15, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 20, colorScheme: _colorScheme)
@@ -54,6 +57,7 @@ struct ContentView: View {
             
             MySlider(passedStateVariable: $splitAmount, bottom: 1, top: 12, step: 1)
             Text("Split Amount is: \(Int(splitAmount))")
+                .fontWeight(.bold)
             HStack{
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 4, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 6, colorScheme: _colorScheme)
