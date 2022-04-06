@@ -7,6 +7,7 @@ struct ContentView: View {
     @State private var tipPercent = 0.0
     @State private var finalBillAmount = ""
     @State private var splitAmount = 1.0
+    @State var alertShouldBeShown = !UserDefaults.standard.bool(forKey: "FirstStart")
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         VStack {
@@ -66,9 +67,23 @@ struct ContentView: View {
             }
             
             Spacer()
+                .alert(isPresented: $alertShouldBeShown, content: {
+
+                                Alert(title: Text("Hello, thank you for using my tip calculator"),
+                                      message: Text("Some tips are that you can also use this to split a bill using the split slider. Also, for both sliders, there are preset buttons below them to help you calculate your tip even faster!"),
+                                      dismissButton: Alert.Button.default(
+                                        Text("Accept"), action: {
+                                            UserDefaults.standard.set(true, forKey: "FirstStart")
+                                      }
+                                    )
+                                )
+                            })
         }
+        .blur(radius: alertShouldBeShown ? 30 : 0)
         .onTapGesture {
             hideKeyboard()
+    
+            
         }
     }
 }
