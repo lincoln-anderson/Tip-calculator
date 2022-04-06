@@ -49,10 +49,10 @@ struct ContentView: View {
             Text("Tip Percent is: \(Int(tipPercent))")
                 .fontWeight(.bold)
             HStack(spacing: 25){
-                MyButton(passedStateVariable: $tipPercent, passedVariable: 15, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 20, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 25, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $tipPercent, passedVariable: 30, colorScheme: _colorScheme)
+                MyButton(passedStateVariable: $tipPercent, passedVariable: 35, colorScheme: _colorScheme)
                 
             }
             
