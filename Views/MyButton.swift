@@ -12,7 +12,6 @@ struct MyButton: View {
     var passedVariable: Double
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
-        Spacer()
         Button {
             passedStateVariable = passedVariable
         } label: {
@@ -28,6 +27,5 @@ struct MyButton: View {
                 )
             
         }
-        Spacer()
     }
 }
