@@ -60,6 +60,7 @@ struct ContentView: View {
             Text("Split Amount is: \(Int(splitAmount))")
                 .fontWeight(.bold)
             HStack(spacing: 25){
+                MyButton(passedStateVariable: $splitAmount, passedVariable: 2, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 4, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 6, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 8, colorScheme: _colorScheme)
