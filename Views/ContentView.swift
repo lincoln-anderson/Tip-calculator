@@ -70,7 +70,7 @@ struct ContentView: View {
                 .alert(isPresented: $alertShouldBeShown, content: {
 
                                 Alert(title: Text("Hello, thank you for using my tip calculator"),
-                                      message: Text("Some tips are that you can also use this to split a bill using the split slider. Also, for both sliders, there are preset buttons below them to help you calculate your tip even faster!"),
+                                      message: Text("You can split a bill using the split slider which will show you the per person cost. Also, for both sliders, there are preset buttons below them to help you calculate your tip even faster!"),
                                       dismissButton: Alert.Button.default(
                                         Text("Accept"), action: {
                                             UserDefaults.standard.set(true, forKey: "FirstStart")
