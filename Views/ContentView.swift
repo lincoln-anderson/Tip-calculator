@@ -5,9 +5,10 @@ import UIKit
 struct ContentView: View {
     @State private var billAmount = ""
     @State private var tipPercent = 0.0
-    @State private var finalBillAmount = ""
+    @State private var finalBillAmount = 0.0
     @State private var splitAmount = 1.0
     @State var alertShouldBeShown = !UserDefaults.standard.bool(forKey: "FirstStart")
+    @State var isRoundUp = false
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         VStack {
@@ -15,10 +16,18 @@ struct ContentView: View {
                 Text("TIP CALCULATOR")
                     .fontWeight(.bold)
                     .font(.largeTitle)
-                Text("Final Bill: \(getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
-                    .font(.title)
-                Text("Tip: \(getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
-                    .font(.title2)
+                if !isRoundUp {
+                    Text("Final Bill: \(getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
+                        .font(.title)
+                    Text("Tip: \(getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
+                        .font(.title2)
+                } else {
+                    Text("Rounded Up Final Bill: \(roundUp(passedFinalAmount: Double(billAmount) ?? 0, passedTipPercent: tipPercent), specifier: "%.2f")")
+                        .font(.title)
+                    Text("Rounded Up Tip: \(roundUpTip(passedBillAmount: Double(billAmount) ?? 0, passedTipPercent: tipPercent), specifier: "%.2f")")
+                        .font(.title2)
+                }
+                
                 if (splitAmount != 1.0) {
                     HStack {
                         Spacer()
@@ -30,6 +39,10 @@ struct ContentView: View {
                         Spacer()
                     }
                 }
+                Button(isRoundUp == false ? "round up" : "go back", action: {
+                    isRoundUp.toggle()
+                })
+                    .buttonStyle(RoundUpButton())
                 
             }
             Spacer()
@@ -67,7 +80,6 @@ struct ContentView: View {
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 10, colorScheme: _colorScheme)
             }
             
-            Spacer()
                 .alert(isPresented: $alertShouldBeShown, content: {
 
                                 Alert(title: Text("Hello, thank you for using my tip calculator"),
@@ -97,6 +109,16 @@ extension View {
 }
 #endif
 
+func roundUp(passedFinalAmount: Double, passedTipPercent: Double) -> Double {
+    var tempValue = getFinalBill(billAmount: passedFinalAmount, tipPercent: passedTipPercent)
+    tempValue = tempValue.rounded(.up)
+    return tempValue
+}
+func roundUpTip(passedBillAmount: Double, passedTipPercent: Double) -> Double {
+    var tempValue = roundUp(passedFinalAmount: passedBillAmount, passedTipPercent: passedTipPercent)
+    tempValue = tempValue - passedBillAmount
+    return tempValue
+}
 
 
 func getFinalBill(billAmount: Double, tipPercent: Double) -> Double {

@@ -21,7 +21,7 @@ struct MyButton: View {
                 .fontWeight(.bold)
                 .padding()
                 .overlay(
-                    RoundedRectangle(cornerRadius: 15)
+                    RoundedRectangle(cornerRadius: 90)
                         .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
                         
                 )
