@@ -72,7 +72,7 @@ struct ContentView: View {
             Button(action: {
                 roundUp()
             }, label: {
-                Text("Round Uhp")
+                Text("Round Up")
                     .foregroundColor(colorScheme == .dark ? .white : .black)
                     .font(.title2)
                     .fontWeight(.bold)
