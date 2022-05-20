@@ -46,14 +46,16 @@ struct ContentView: View {
                     .padding()
             
             MySlider(passedStateVariable: $tipPercent, bottom: 0, top: 40, step: 1)
-            Text("Tip Percent is: \(Int(tipPercent))")
-                .fontWeight(.bold)
-            HStack(spacing: 25){
-                MyButton(passedStateVariable: $tipPercent, passedVariable: 15, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $tipPercent, passedVariable: 20, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $tipPercent, passedVariable: 25, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $tipPercent, passedVariable: 30, colorScheme: _colorScheme)
-                
+            VStack{
+                Text("Tip Percent is: \(Int(tipPercent))")
+                    .fontWeight(.bold)
+                HStack(spacing: 25){
+                    MyButton(passedStateVariable: $tipPercent, passedVariable: 15, colorScheme: _colorScheme)
+                    MyButton(passedStateVariable: $tipPercent, passedVariable: 20, colorScheme: _colorScheme)
+                    MyButton(passedStateVariable: $tipPercent, passedVariable: 25, colorScheme: _colorScheme)
+                    MyButton(passedStateVariable: $tipPercent, passedVariable: 30, colorScheme: _colorScheme)
+                    
+                }
             }
             
             MySlider(passedStateVariable: $splitAmount, bottom: 1, top: 12, step: 1)
@@ -66,8 +68,21 @@ struct ContentView: View {
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 8, colorScheme: _colorScheme)
                 MyButton(passedStateVariable: $splitAmount, passedVariable: 10, colorScheme: _colorScheme)
             }
-            
             Spacer()
+            Button(action: {
+                roundUp()
+            }, label: {
+                Text("Round Up")
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
+                            
+                    )
+            })
                 .alert(isPresented: $alertShouldBeShown, content: {
 
                                 Alert(title: Text("Hello, thank you for using my tip calculator"),
@@ -97,7 +112,9 @@ extension View {
 }
 #endif
 
-
+func roundUp() {
+    
+}
 
 func getFinalBill(billAmount: Double, tipPercent: Double) -> Double {
     let finalBill = getTipAmount(billAmount: billAmount, tipPercent: tipPercent) + (Double(billAmount))
