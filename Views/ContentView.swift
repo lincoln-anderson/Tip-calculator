@@ -70,9 +70,9 @@ struct ContentView: View {
             }
             Spacer()
             Button(action: {
-                roundUp(billAmount: Double(billAmount) ?? 0, tipPercent: Double(tipPercent))
+                roundUp()
             }, label: {
-                Text("Round Up")
+                Text("Round Uhp")
                     .foregroundColor(colorScheme == .dark ? .white : .black)
                     .font(.title2)
                     .fontWeight(.bold)
@@ -112,7 +112,7 @@ extension View {
 }
 #endif
 
-func roundUp(billAmount: Double, tipPercent: Double) {
+func roundUp() {
     
 }
 
