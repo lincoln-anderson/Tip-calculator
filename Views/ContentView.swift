@@ -8,6 +8,7 @@ struct ContentView: View {
     @State private var finalBillAmount = ""
     @State private var splitAmount = 1.0
     @State private var userRoundedUp = false
+    @State private var hideSplitSlider = true
     @State var alertShouldBeShown = !UserDefaults.standard.bool(forKey: "FirstStart")
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
@@ -66,32 +67,78 @@ struct ContentView: View {
                     
                 }
             }
-            
-            MySlider(passedStateVariable: $splitAmount, bottom: 1, top: 12, step: 1)
-            Text("Split Amount is: \(Int(splitAmount))")
-                .fontWeight(.bold)
-            HStack(spacing: 25){
-                MyButton(passedStateVariable: $splitAmount, passedVariable: 2, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $splitAmount, passedVariable: 4, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $splitAmount, passedVariable: 6, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $splitAmount, passedVariable: 8, colorScheme: _colorScheme)
-                MyButton(passedStateVariable: $splitAmount, passedVariable: 10, colorScheme: _colorScheme)
+            if (hideSplitSlider == false) {
+                MySlider(passedStateVariable: $splitAmount, bottom: 1, top: 12, step: 1)
+                Text("Split Amount is: \(Int(splitAmount))")
+                    .fontWeight(.bold)
+                HStack(spacing: 25){
+                    MyButton(passedStateVariable: $splitAmount, passedVariable: 2, colorScheme: _colorScheme)
+                    MyButton(passedStateVariable: $splitAmount, passedVariable: 4, colorScheme: _colorScheme)
+                    MyButton(passedStateVariable: $splitAmount, passedVariable: 6, colorScheme: _colorScheme)
+                    MyButton(passedStateVariable: $splitAmount, passedVariable: 8, colorScheme: _colorScheme)
+                    MyButton(passedStateVariable: $splitAmount, passedVariable: 10, colorScheme: _colorScheme)
+                }
             }
             Spacer()
-            Button(action: {
-                userRoundedUp.toggle()
-            }, label: {
-                Text("Round Up")
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
-                            
-                    )
-            })
+            HStack {
+                Spacer()
+                Button(action: {
+                    userRoundedUp.toggle()
+                }, label: {
+                    if (userRoundedUp == false) {
+                        Text("Round Up")
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
+                                    
+                            )
+                    } else {
+                        Text("Undo Round")
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
+                                    
+                            )
+                    }
+                })
+                Spacer()
+                Button(action: {
+                    hideSplitSlider.toggle()
+                }, label: {
+                    if (hideSplitSlider) {
+                        Text("Split Bill")
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
+                                    
+                            )
+                    } else {
+                        Text("Hide Split")
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(colorScheme == .dark ? .white : .black, lineWidth: 3)
+                                    
+                            )
+                    }
+                })
+                Spacer()
+            }
                 .alert(isPresented: $alertShouldBeShown, content: {
 
                                 Alert(title: Text("Hello, thank you for using my tip calculator"),
