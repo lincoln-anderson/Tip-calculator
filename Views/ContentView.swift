@@ -7,6 +7,7 @@ struct ContentView: View {
     @State private var tipPercent = 0.0
     @State private var finalBillAmount = ""
     @State private var splitAmount = 1.0
+    @State private var userRoundedUp = false
     @State var alertShouldBeShown = !UserDefaults.standard.bool(forKey: "FirstStart")
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
@@ -15,10 +16,18 @@ struct ContentView: View {
                 Text("TIP CALCULATOR")
                     .fontWeight(.bold)
                     .font(.largeTitle)
-                Text("Final Bill: \(getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
-                    .font(.title)
-                Text("Tip: \(getTipAmount(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
-                    .font(.title2)
+                if (userRoundedUp) {
+                    Text("Rounded Up Final Bill: \(roundUp(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
+                        .font(.title)
+                    Text("Rounded Up Tip: \(roundUpTip(roundedUpAmount: roundUp(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), billAmount: Double(billAmount) ?? 0), specifier: "%.2f")")
+                        .font(.title2)
+                } else {
+                    Text("Final Bill: \(getFinalBill(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), specifier: "%.2f")")
+                        .font(.title)
+                    Text("Tip: \(getTipAmount(billAmount: roundUp(billAmount: Double(billAmount) ?? 0, tipPercent: tipPercent), tipPercent: tipPercent), specifier: "%.2f")")
+                        .font(.title2)
+                    
+                }
                 if (splitAmount != 1.0) {
                     HStack {
                         Spacer()
@@ -70,7 +79,7 @@ struct ContentView: View {
             }
             Spacer()
             Button(action: {
-                roundUp()
+                userRoundedUp.toggle()
             }, label: {
                 Text("Round Up")
                     .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -112,7 +121,17 @@ extension View {
 }
 #endif
 
-func roundUp() {
+func roundUp(billAmount: Double, tipPercent: Double) -> Double{
+    let finalBill = getTipAmount(billAmount: billAmount, tipPercent: tipPercent) + (Double(billAmount))
+    
+    return round(finalBill)
+    
+}
+
+func roundUpTip(roundedUpAmount: Double, billAmount: Double) -> Double {
+    let roundedTip = roundedUpAmount - billAmount
+    
+    return roundedTip
     
 }
 
